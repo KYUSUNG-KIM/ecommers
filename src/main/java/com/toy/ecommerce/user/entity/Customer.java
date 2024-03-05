@@ -49,7 +49,7 @@ public class Customer extends BaseEntity {
     private LocalDateTime verifyExpiredAt;
 
     @NotNull
-    private boolean isValid = true;
+    private boolean isDelete = false;
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "customerId", updatable = false)
