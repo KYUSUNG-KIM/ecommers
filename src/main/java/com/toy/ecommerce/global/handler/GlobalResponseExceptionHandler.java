@@ -48,6 +48,8 @@ public class GlobalResponseExceptionHandler extends ResponseEntityExceptionHandl
 
         CommonResponse commonResponse = new CommonResponse();
         commonResponse.setError(HttpStatus.INTERNAL_SERVER_ERROR, message);
+        log.error(message);
+        ex.printStackTrace();
 
         return commonResponse;
     }
