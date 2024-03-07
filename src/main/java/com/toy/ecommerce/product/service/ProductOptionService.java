@@ -1,7 +1,5 @@
 package com.toy.ecommerce.product.service;
 
-import com.toy.ecommerce.global.exception.CustomException;
-import com.toy.ecommerce.global.exception.ErrorCode;
 import com.toy.ecommerce.product.dto.CreateOptionForm;
 import com.toy.ecommerce.product.entity.Product;
 import com.toy.ecommerce.product.entity.ProductOption;
@@ -31,8 +29,7 @@ public class ProductOptionService {
     @Transactional
     public ProductOption create(Long sellerId, String productCode, CreateOptionForm form) {
 
-        Product product = productService.getBySellerIdAndProductCode(sellerId, productCode)
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_PRODUCT));
+        Product product = productService.getBySellerIdAndProductCode(sellerId, productCode);
 
         ProductOption productOption = ProductOption.create(product, form);
 

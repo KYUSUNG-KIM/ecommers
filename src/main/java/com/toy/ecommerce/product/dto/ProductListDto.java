@@ -4,18 +4,19 @@ import com.toy.ecommerce.product.constants.SellStatus;
 import com.toy.ecommerce.product.entity.Product;
 import lombok.*;
 
-import java.util.List;
-
+/*
+상품 목록 조회 DTO
+ */
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class ProductDto {
+public class ProductListDto {
 
-    private String productCode;                 // 상품 코드, UK
+    private String productCode;                 // 상품 코드
 
-    private CategoryProductSimpleDto category;  // 상품 카테고리, FK
+    private CategoryProductSimpleDto category;  // 상품 카테고리
 
     private String name;                        // 상품명
 
@@ -27,13 +28,10 @@ public class ProductDto {
 
     private SellStatus sellStatus;              // 판매 상태
 
-    private List<ProductOptionDto> options;     // 상품 옵션
 
+    public static ProductListDto from(Product product) {
 
-
-    public static ProductDto from(Product product) {
-
-        return ProductDto.builder()
+        return ProductListDto.builder()
                 .productCode(product.getProductCode())
                 .category(CategoryProductSimpleDto.from(product.getCategoryProduct()))
                 .name(product.getName())
@@ -41,7 +39,6 @@ public class ProductDto {
                 .price(product.getPrice())
                 .description(product.getDescription())
                 .sellStatus(product.getSellStatus())
-                .options(product.getOptions().stream().map(ProductOptionDto::from).toList())
                 .build();
     }
 }
