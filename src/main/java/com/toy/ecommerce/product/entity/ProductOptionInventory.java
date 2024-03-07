@@ -18,10 +18,11 @@ public class ProductOptionInventory extends BaseEntity {
     @Column(name = "option_code", nullable = false)
     private String optionCode;      // 상품 옵션 코드, FK
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "option_code")
     private ProductOption productOption;        // 상품 옵션 코드, FK
 
+    @Version
     @Column(columnDefinition = "int(10) unsigned")
     private int inventory;          // 재고
 
@@ -40,5 +41,9 @@ public class ProductOptionInventory extends BaseEntity {
         return optionInventory.toBuilder()
                 .inventory(inventory)
                 .build();
+    }
+
+    public void deductInventory(int quantity) {
+        this.inventory = this.inventory - quantity;
     }
 }
