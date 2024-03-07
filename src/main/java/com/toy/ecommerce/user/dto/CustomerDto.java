@@ -18,14 +18,14 @@ public class CustomerDto {
 
     private String phoneNumber;
 
-    private int balance;
+    private int point;
 
     public static CustomerDto of(Customer customer) {
         return CustomerDto.builder()
                 .email(customer.getEmail())
                 .customerName(customer.getCustomerName())
                 .phoneNumber(customer.getPhoneNumber())
-                .balance(customer.getBalance())
+                .point(customer.getPoint())
                 .build();
     }
 }

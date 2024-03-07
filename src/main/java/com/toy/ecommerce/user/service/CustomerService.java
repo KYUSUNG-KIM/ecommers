@@ -19,6 +19,12 @@ public class CustomerService {
 
 
     @Transactional(readOnly = true)
+    public Optional<Customer> getById(Long customerId) {
+
+        return customerRepository.findById(customerId);
+    }
+
+    @Transactional(readOnly = true)
     public Optional<Customer> getVerifiedCustomerByEmail(String email) {
 
         return customerRepository.findOneByEmailAndVerifyIsTrue(email);
@@ -44,4 +50,24 @@ public class CustomerService {
 
         return customerRepository.save(customer);
     }
+
+    @Transactional
+    public void deductPoint(Long customerId, int point) {
+
+        Customer customer = customerRepository.findById(customerId)
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
+
+        if (! hasEnoughMoney(customer, point)) {
+            throw new CustomException(ErrorCode.NOT_ENOUGH_POINT);
+        }
+        else {
+
+        }
+    }
+
+    private boolean hasEnoughMoney(Customer customer, final int point) {
+        final int calculatedPoint = customer.getPoint() - point;
+        return calculatedPoint > 0;
+    }
+
 }
