@@ -28,7 +28,6 @@ public class CategoryProductService {
         return categoryProductRepository.findByCategoryCode(categoryCode);
     }
 
-
     // 전체 카테고리 정보 조회
     @Transactional(readOnly = true)
     public List<CategoryProductDto> getAllCategories() {
