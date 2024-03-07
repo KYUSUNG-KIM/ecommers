@@ -35,9 +35,10 @@ public class Customer extends BaseEntity {
     @NotNull
     private String phoneNumber;
 
+    @Version
     @NotNull
     @Column(columnDefinition = "int default 0")
-    private int balance;
+    private int point;
 
     @NotNull
     private String verificationCode;
@@ -54,4 +55,9 @@ public class Customer extends BaseEntity {
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "customerId", updatable = false)
     private List<CustomerRole> roles;
+
+
+    public void changePoint(final int changeAmount) {
+        this.point = this.point - changeAmount;
+    }
 }
