@@ -48,11 +48,10 @@ public class ProductOption extends BaseEntity {
                 .product(product)
                 .optionName(form.getOptionName())
                 .sellStatus(SellStatus.ON_SALE)
-                .price(form.getExtraAmount())
+                .price(form.getPrice())
                 .optionInventory(ProductOptionInventory.of(optionCode, form.getInventory()))
                 .build();
     }
-
 
     public static ProductOption update(ProductOption option, UpdateOptionForm form) {
 
@@ -65,4 +64,7 @@ public class ProductOption extends BaseEntity {
                 .build();
     }
 
+    public String productAndOptionName() {
+        return this.getProduct().getName() + " " + this.getOptionName();
+    }
 }

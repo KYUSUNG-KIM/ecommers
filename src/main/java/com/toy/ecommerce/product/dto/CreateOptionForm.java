@@ -15,7 +15,7 @@ public class CreateOptionForm {
     private String optionName;              // 옵션명
 
     @Min(0)
-    private Integer extraAmount;            // 추가 금액
+    private Integer price;            // 추가 금액
 
     @Min(0)
     private Integer inventory;              // 재고

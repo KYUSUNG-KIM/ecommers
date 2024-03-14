@@ -32,7 +32,7 @@ public class CommonResponse<T> {
 	public void setError(HttpStatus httpStatus, String errorCode, String message) {
 		setResult(ResponseResult.ERROR);
 		setStatus(httpStatus.value());
-		setMessage(message);
 		setErrorCode(errorCode);
+		setMessage(message);
 	}
 }

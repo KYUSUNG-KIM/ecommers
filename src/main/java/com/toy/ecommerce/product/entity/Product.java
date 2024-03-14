@@ -82,4 +82,9 @@ public class Product extends BaseEntity {
                 .sellStatus(SellStatus.valueOf(form.getSellStatus()))
                 .build();
     }
+
+    public void addOption(ProductOption option) {
+        this.options.add(option);
+        option.setProduct(this);
+    }
 }

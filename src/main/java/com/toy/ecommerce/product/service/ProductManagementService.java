@@ -25,22 +25,22 @@ public class ProductManagementService {
     @Transactional
     public Product createProduct(Long sellerId, CreateProductForm form) {
 
-        Product product = productService.create(sellerId, form);
+        Product newProduct = productService.create(sellerId, form);
 
         for (CreateOptionForm optionForm : form.getOptions()) {
-            productOptionService.save(ProductOption.create(product, optionForm));
+            newProduct.addOption(productOptionService.save(ProductOption.create(newProduct, optionForm)));
         }
 
-        return product;
+        return newProduct;
     }
 
     @Transactional
     public Product updateProduct(Long sellerId, String productCode, UpdateProductForm form) {
 
-        Product product = productService.update(sellerId, productCode, form);
+        Product updateProduct = productService.update(sellerId, productCode, form);
 
         form.getOptions().forEach(optionForm -> {
-            ProductOption productOption = product.getOptions().stream()
+            ProductOption productOption = updateProduct.getOptions().stream()
                     .filter(option -> StringUtils.equals(option.getOptionCode(), optionForm.getOptionCode()))
                     .findFirst()
                     .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_OPTION));
@@ -48,7 +48,7 @@ public class ProductManagementService {
             productOptionService.save(ProductOption.update(productOption, optionForm));
         });
 
-        return product;
+        return updateProduct;
     }
 
 }

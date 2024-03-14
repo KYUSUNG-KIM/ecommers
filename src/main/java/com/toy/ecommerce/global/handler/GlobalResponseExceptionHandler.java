@@ -40,11 +40,12 @@ public class GlobalResponseExceptionHandler extends ResponseEntityExceptionHandl
 
     @ExceptionHandler(value = {Exception.class})
     protected CommonResponse handleException(RuntimeException ex, WebRequest request) {
-        String message = ex.getLocalizedMessage();
 
-        if (StringUtils.isEmpty(message)) {
-            message = "Server occurred error";
-        }
+
+        String message = "Server occurred error";
+
+        log.error("Internal Server Error : {}", ex.getLocalizedMessage());
+        ex.printStackTrace();
 
         CommonResponse commonResponse = new CommonResponse();
         commonResponse.setError(HttpStatus.INTERNAL_SERVER_ERROR, message);
@@ -60,9 +61,9 @@ public class GlobalResponseExceptionHandler extends ResponseEntityExceptionHandl
     })
     public CommonResponse customerRequestException(final CustomException c) {
 
-        log.warn("API Exception Error Code : {}", c.getErrorCode());
+        log.error("API Exception Error Code : {}", c.getErrorCode());
         CommonResponse commonResponse = new CommonResponse();
-        commonResponse.setError(HttpStatus.BAD_REQUEST, c.getMessage(), c.getErrorCode().getCode());
+        commonResponse.setError(HttpStatus.BAD_REQUEST, c.getErrorCode().getCode(), c.getErrorCode().getDetail());
         return commonResponse;
     }
 
