@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-@Table(name = "CUSTOMER")
+@Table(name = "ecc_customer")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -35,7 +35,6 @@ public class Customer extends BaseEntity {
     @NotNull
     private String phoneNumber;
 
-    @Version
     @NotNull
     @Column(columnDefinition = "int default 0")
     private int point;
@@ -57,7 +56,7 @@ public class Customer extends BaseEntity {
     private List<CustomerRole> roles;
 
 
-    public void changePoint(final int changeAmount) {
-        this.point = this.point - changeAmount;
+    public void deductPoint(final int changeAmount) {
+        this.setPoint(this.point - changeAmount);
     }
 }

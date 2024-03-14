@@ -5,12 +5,12 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "order_detail")
+@Table(name = "ecc_order_detail")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@Builder(toBuilder = true)
 public class OrderDetail extends BaseEntity {
 
     @Id
@@ -18,7 +18,7 @@ public class OrderDetail extends BaseEntity {
     private long detailId;
 
     @ManyToOne
-    @JoinColumn(nullable = false)
+    @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
     @Column(nullable = false)
@@ -34,4 +34,5 @@ public class OrderDetail extends BaseEntity {
 
     @Column(nullable = false)
     private int totalAmount;
+
 }

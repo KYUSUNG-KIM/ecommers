@@ -8,6 +8,7 @@ import lombok.Setter;
 import jakarta.persistence.*;
 
 @Entity
+@Table(name = "ecc_customer_role")
 @Getter
 @Setter
 @IdClass(value = CustomerRoleId.class)

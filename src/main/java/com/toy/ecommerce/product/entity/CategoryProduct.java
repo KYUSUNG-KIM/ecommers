@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "CATEGORY_PRODUCT")
+@Table(name = "ecc_category_product")
 @Getter
 @Setter
 @AllArgsConstructor

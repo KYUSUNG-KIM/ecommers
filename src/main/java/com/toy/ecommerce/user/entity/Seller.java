@@ -11,7 +11,7 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "seller")
+@Table(name = "ecc_seller")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor

@@ -9,7 +9,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "PRODUCT_OPTION")
+@Table(name = "ecc_product_option")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -33,7 +33,7 @@ public class ProductOption extends BaseEntity {
     private SellStatus sellStatus;      // 판매 상태
 
     @Column(nullable = false)
-    private int extraAmount;            // 추가 금액
+    private int price;                  // 가격
 
     @OneToOne(mappedBy = "productOption", cascade = CascadeType.ALL)
     private ProductOptionInventory optionInventory;
@@ -48,7 +48,7 @@ public class ProductOption extends BaseEntity {
                 .product(product)
                 .optionName(form.getOptionName())
                 .sellStatus(SellStatus.ON_SALE)
-                .extraAmount(form.getExtraAmount())
+                .price(form.getExtraAmount())
                 .optionInventory(ProductOptionInventory.of(optionCode, form.getInventory()))
                 .build();
     }
@@ -59,7 +59,7 @@ public class ProductOption extends BaseEntity {
         return option.toBuilder()
                 .optionName(form.getOptionName())
                 .sellStatus(SellStatus.valueOf(form.getSellStatus()))
-                .extraAmount(form.getExtraAmount())
+                .price(form.getPrice())
                 .optionInventory(ProductOptionInventory.update(option.getOptionInventory(), form.getInventory()))
                 .sellStatus(SellStatus.valueOf(form.getSellStatus()))
                 .build();

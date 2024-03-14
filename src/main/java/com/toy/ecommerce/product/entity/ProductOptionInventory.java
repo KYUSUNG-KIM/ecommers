@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "PRODUCT_OPTION_INVENTORY")
+@Table(name = "ecc_product_option_inventory")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -22,7 +22,6 @@ public class ProductOptionInventory extends BaseEntity {
     @JoinColumn(name = "option_code")
     private ProductOption productOption;        // 상품 옵션 코드, FK
 
-    @Version
     @Column(columnDefinition = "int(10) unsigned")
     private int inventory;          // 재고
 
@@ -44,6 +43,6 @@ public class ProductOptionInventory extends BaseEntity {
     }
 
     public void deductInventory(int quantity) {
-        this.inventory = this.inventory - quantity;
+        this.setInventory(this.inventory - quantity);
     }
 }

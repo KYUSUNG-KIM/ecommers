@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "PRODUCT")
+@Table(name = "ecc_product")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -39,9 +39,6 @@ public class Product extends BaseEntity {
     @Column(length = 1000)
     private String subName;                     // 서브 이름
 
-    @Column(columnDefinition = "int unsigned", nullable = false)
-    private int price;                          // 가격
-
     private String description;                 // 설명
 
     @Enumerated(EnumType.STRING)
@@ -51,6 +48,7 @@ public class Product extends BaseEntity {
     @Column(nullable = false)
     private boolean isDelete = false;           // 삭제 여부
 
+    @Builder.Default
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     private List<ProductOption> options = new ArrayList<>();        // 상품 옵션
 
@@ -65,7 +63,6 @@ public class Product extends BaseEntity {
                 .categoryProduct(categoryProduct)
                 .name(form.getName())
                 .subName(form.getSubName())
-                .price(form.getPrice())
                 .description(form.getDescription())
                 .sellStatus(SellStatus.WAITING_SALE)
                 .isDelete(false)
@@ -81,7 +78,6 @@ public class Product extends BaseEntity {
                 .categoryProduct(categoryProduct)
                 .name(form.getName())
                 .subName(form.getSubName())
-                .price(form.getPrice())
                 .description(form.getDescription())
                 .sellStatus(SellStatus.valueOf(form.getSellStatus()))
                 .build();
