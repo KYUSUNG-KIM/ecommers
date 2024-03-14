@@ -6,6 +6,7 @@ import com.toy.ecommerce.order.dto.OrderRequestForm;
 import com.toy.ecommerce.order.service.OrderService;
 import com.toy.ecommerce.user.dto.CustomerDto;
 import com.toy.ecommerce.user.service.CustomerService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,8 +21,8 @@ public class OrderController {
     private final OrderService orderService;
     private final CustomerService customerService;
 
-    @PostMapping(value = "/order")
-    public CommonResponse<OrderDto> requestOrder(@RequestBody OrderRequestForm form,
+    @PostMapping(value = "/orders")
+    public CommonResponse<OrderDto> requestOrder(@Valid @RequestBody OrderRequestForm form,
                                                  Principal principal) {
 
         CustomerDto customerDto = customerService.getCustomerDto(principal.getName());

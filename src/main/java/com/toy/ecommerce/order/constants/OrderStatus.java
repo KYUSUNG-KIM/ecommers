@@ -1,11 +1,13 @@
 package com.toy.ecommerce.order.constants;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.toy.ecommerce.global.entity.EnumProperty;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum OrderStatus  implements EnumProperty {
 
     ORDERED("주문 접수"),

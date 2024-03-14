@@ -8,6 +8,7 @@ import com.toy.ecommerce.order.dto.OrderRequestForm;
 import com.toy.ecommerce.order.entity.Order;
 import com.toy.ecommerce.order.entity.OrderDetail;
 import com.toy.ecommerce.order.repository.OrderRepository;
+import com.toy.ecommerce.product.entity.ProductOption;
 import com.toy.ecommerce.product.service.ProductOptionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,36 +23,29 @@ public class OrderHistoryService {
 
     private final OrderRepository orderRepository;
 
-
     @Transactional
-    public Order createHistory(OrderRequestForm form,
-                               String email,
-                               String phoneNumber,
-                               PaymentMethod paymentMethod) {
-
-        Order newOrder = orderRepository.save(
-                Order.newOrder(email, phoneNumber, paymentMethod, form.getTotalAmount()));
-
-        for (OrderOptionForm optionForm : form.getOptions()) {
-            orderDetailService.save(formToOptionDetail(newOrder, optionForm));
-        }
-
+    public Order createOrder(OrderRequestForm form, String email, String phoneNumber, PaymentMethod paymentMethod) {
+        Order newOrder = orderRepository.save(Order.create(email, phoneNumber, paymentMethod, form.getTotalAmount()));
+        form.getOptions().forEach(optionForm -> newOrder.addOrderDetail(createOrderDetail(newOrder, optionForm)));
         return newOrder;
     }
 
-    private OrderDetail formToOptionDetail(Order order, OrderOptionForm form) {
-
-        return productOptionService.getByOptionCode(form.getOptionCode())
-                .map(option -> OrderDetail.builder()
-                        .order(order)
-                        .optionCode(option.getOptionCode())
-                        .productName(option.getProduct() + " " + option.getOptionName())
-                        .price(option.getPrice())
-                        .quantity(form.getQuantity())
-                        .totalAmount(option.getPrice() * form.getQuantity())
-                        .build()
-                )
+    private OrderDetail createOrderDetail(Order order, OrderOptionForm form) {
+        ProductOption option = productOptionService.getByOptionCode(form.getOptionCode())
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_OPTION));
+
+        return orderDetailService.save(newOrderDetail(order, option, form.getQuantity()));
+    }
+
+    private OrderDetail newOrderDetail(Order order, ProductOption option, int quantity) {
+        return OrderDetail.builder()
+                .order(order)
+                .optionCode(option.getOptionCode())
+                .productName(option.productAndOptionName())
+                .price(option.getPrice())
+                .quantity(quantity)
+                .totalAmount(option.getPrice() * quantity)
+                .build();
     }
 
 }

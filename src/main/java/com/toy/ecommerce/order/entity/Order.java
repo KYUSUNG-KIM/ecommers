@@ -56,10 +56,10 @@ public class Order extends BaseEntity {
     private List<OrderDetail> orderDetails = new ArrayList<>();
 
 
-    public static Order newOrder(String email,
-                                 String phoneNumber,
-                                 PaymentMethod paymentMethod,
-                                 Integer totalAmount) {
+    public static Order create(String email,
+                               String phoneNumber,
+                               PaymentMethod paymentMethod,
+                               Integer totalAmount) {
 
         return Order.builder()
                 .orderCode(OrderCodeUtil.generateOrderCode())
@@ -73,4 +73,8 @@ public class Order extends BaseEntity {
                 .build();
     }
 
+    public void addOrderDetail(OrderDetail orderDetail) {
+        this.orderDetails.add(orderDetail);
+        orderDetail.setOrder(this);
+    }
 }

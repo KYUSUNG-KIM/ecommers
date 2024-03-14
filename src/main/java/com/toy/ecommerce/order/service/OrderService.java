@@ -52,7 +52,7 @@ public class OrderService {
         productOptionInventoryService.deductInventory(forms);
 
         // 5. 주문 내역 생성
-        return orderHistoryService.createHistory(form, email, phoneNumber, PaymentMethod.POINT);
+        return orderHistoryService.createOrder(form, email, phoneNumber, PaymentMethod.POINT);
     }
 
 }
