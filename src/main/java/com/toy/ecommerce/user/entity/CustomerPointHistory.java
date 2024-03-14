@@ -1,5 +1,6 @@
 package com.toy.ecommerce.user.entity;
 
+import com.toy.ecommerce.user.dto.ChangePointForm;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,7 +9,7 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @Entity
-@Table(name = "customer_point_history")
+@Table(name = "ecc_customer_point_history")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -16,10 +17,10 @@ public class CustomerPointHistory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long historyId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CUSTOMER_ID")
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
     private int changePoint;
@@ -30,4 +31,25 @@ public class CustomerPointHistory {
 
     private String description;
 
+
+    public static CustomerPointHistory initHistory(Customer customer) {
+
+        return CustomerPointHistory.builder()
+                .changePoint(0)
+                .currentPoint(0)
+                .customer(customer)
+                .build();
+    }
+
+    public static CustomerPointHistory newHistory(ChangePointForm form,
+                                                  int resultMoney,
+                                                  Customer customer) {
+        return CustomerPointHistory.builder()
+                .changePoint(form.getChangePoint())
+                .currentPoint(resultMoney)
+                .description(form.getMessage())
+                .fromMessage(form.getFrom())
+                .customer(customer)
+                .build();
+    }
 }
