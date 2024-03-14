@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface ProductOptionRepository extends JpaRepository<ProductOption, String> {
 
-    Optional<ProductOption> findByIdAndSellStatus(String optionCode, SellStatus sellStatus);
+    Optional<ProductOption> findByOptionCodeAndSellStatus(String optionCode, SellStatus sellStatus);
 
 }

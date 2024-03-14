@@ -1,6 +1,5 @@
 package com.toy.ecommerce.product.dto;
 
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
@@ -22,9 +21,6 @@ public class CreateProductForm {
 
     @Size(max = 1000)
     private String subName;             // 서브 이름
-
-    @Min(1)
-    private Integer price;              // 가격
 
     private String description;         // 설명
 

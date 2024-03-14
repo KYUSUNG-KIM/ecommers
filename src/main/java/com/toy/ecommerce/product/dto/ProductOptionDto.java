@@ -11,15 +11,15 @@ import lombok.*;
 @Builder
 public class ProductOptionDto {
 
-    private String optionCode;          // 옵션 코드, PK
+    private String optionCode;
 
-    private String optionName;          // 옵션명
+    private String optionName;
 
-    private SellStatus sellStatus;      // 판매 상태
+    private SellStatus sellStatus;
 
-    private Integer extraAmount;        // 추가 금액
+    private Integer price;
 
-    private Integer inventory;          // 재고
+    private Integer inventory;
 
 
     public static ProductOptionDto from(ProductOption option) {
@@ -28,7 +28,7 @@ public class ProductOptionDto {
                 .optionCode(option.getOptionCode())
                 .optionName(option.getOptionName())
                 .sellStatus(option.getSellStatus())
-                .extraAmount(option.getExtraAmount())
+                .price(option.getPrice())
                 .inventory(option.getOptionInventory().getInventory())
                 .build();
     }
