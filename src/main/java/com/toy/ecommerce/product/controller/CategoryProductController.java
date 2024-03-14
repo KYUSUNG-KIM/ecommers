@@ -22,20 +22,16 @@ public class CategoryProductController {
 
     // 카테고리 등록
     @PostMapping("/category/products")
-    public CommonResponse createCategory(@Valid @RequestBody CreateCategoryForm form) {
+    public CommonResponse<CategoryProductDto> createCategory(@Valid @RequestBody CreateCategoryForm form) {
 
-        categoryProductService.create(form);
-
-        return new CommonResponse("OK");
+        return new CommonResponse<>(CategoryProductDto.from(categoryProductService.create(form)));
     }
 
 
     // 전체 카테고리 조회
     @GetMapping("/category/products")
-    public CommonResponse getAllCategories() {
+    public CommonResponse<List<CategoryProductDto>> getAllCategories() {
 
-        List<CategoryProductDto> dtoList = categoryProductService.getAllCategories();
-
-        return new CommonResponse(dtoList);
+        return new CommonResponse<>(categoryProductService.getAllCategories());
     }
 }

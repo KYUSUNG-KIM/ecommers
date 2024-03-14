@@ -2,9 +2,7 @@ package com.toy.ecommerce.product.service;
 
 import com.toy.ecommerce.global.exception.CustomException;
 import com.toy.ecommerce.global.exception.ErrorCode;
-import com.toy.ecommerce.product.dto.CreateProductForm;
-import com.toy.ecommerce.product.dto.SearchProductCondition;
-import com.toy.ecommerce.product.dto.UpdateProductForm;
+import com.toy.ecommerce.product.dto.*;
 import com.toy.ecommerce.product.entity.CategoryProduct;
 import com.toy.ecommerce.product.entity.Product;
 import com.toy.ecommerce.product.repository.ProductDynamicRepository;
@@ -70,9 +68,10 @@ public class ProductService {
 
     // 상품 조회
     @Transactional(readOnly = true)
-    public Page<Product> searchProduct(SearchProductCondition condition, Pageable pageable) {
+    public Page<ProductListDto> searchProduct(SearchProductCondition condition, Pageable pageable) {
 
-        return productDynamicRepository.searchProducts(condition, pageable);
+        return productDynamicRepository.searchProducts(condition, pageable)
+                .map(ProductListDto::from);
     }
 
 }

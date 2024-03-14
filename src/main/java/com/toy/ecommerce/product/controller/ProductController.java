@@ -4,7 +4,6 @@ import com.toy.ecommerce.global.dto.CommonResponse;
 import com.toy.ecommerce.product.dto.ProductDto;
 import com.toy.ecommerce.product.dto.ProductListDto;
 import com.toy.ecommerce.product.dto.SearchProductCondition;
-import com.toy.ecommerce.product.entity.Product;
 import com.toy.ecommerce.product.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -23,22 +22,17 @@ public class ProductController {
 
     // 상품 조회
     @GetMapping(value = "/products/{productCode}")
-    public CommonResponse getProduct(@PathVariable(name = "productCode") String productCode) {
+    public CommonResponse<ProductDto> getProduct(@PathVariable(name = "productCode") String productCode) {
 
-        Product product = productService.getByProductCode(productCode);
-
-        return new CommonResponse(ProductDto.from(product));
+        return new CommonResponse<>(ProductDto.from(productService.getByProductCode(productCode)));
     }
 
     // 상품 목록 검색
     @GetMapping(value = "/products/search")
-    public CommonResponse searchProducts(SearchProductCondition condition,
-                                         Pageable pageable) {
+    public CommonResponse<Page<ProductListDto>> searchProducts(SearchProductCondition condition,
+                                                               Pageable pageable) {
 
-        Page<ProductListDto> dtoList = productService.searchProduct(condition, pageable)
-                .map(ProductListDto::from);
-
-        return new CommonResponse(dtoList);
+        return new CommonResponse<>(productService.searchProduct(condition, pageable));
     }
 
 

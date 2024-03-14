@@ -24,22 +24,20 @@ public class SellerProductController {
 
     // 상품 등록
     @PostMapping(value = "/seller/products")
-    public CommonResponse createProduct(@RequestBody CreateProductForm form) {
+    public CommonResponse<ProductDto> createProduct(@RequestBody CreateProductForm form) {
 
         // todo : seller ID 입력 받기
-        Product product = productManagementService.createProduct(1L, form);
 
-        return new CommonResponse(ProductDto.from(product));
+        return new CommonResponse<>(ProductDto.from(productManagementService.createProduct(1L, form)));
     }
 
     // 상품 수정
     @PutMapping(value = "/seller/products/{productCode}")
-    public CommonResponse updateProduct(@PathVariable(name = "productCode") String productCode,
+    public CommonResponse<ProductDto> updateProduct(@PathVariable(name = "productCode") String productCode,
                                         @RequestBody UpdateProductForm form) {
 
         // todo : seller ID 입력 받기
-        Product product = productManagementService.updateProduct(1L, productCode, form);
 
-        return new CommonResponse(ProductDto.from(product));
+        return new CommonResponse<>(ProductDto.from(productManagementService.updateProduct(1L, productCode, form)));
     }
 }
