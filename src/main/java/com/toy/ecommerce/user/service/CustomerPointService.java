@@ -18,24 +18,26 @@ public class CustomerPointService {
 
 
     @Transactional(noRollbackFor = CustomException.class)
-    public void changePoint(String email, final ChangePointForm form) {
+    public void deductPoint(String email, int deductPoint, String message) {
 
         Customer customer = customerService.getVerifiedCustomerByEmail(email)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER));
 
-        checkPoint(customer.getPoint(), form.getPoint());
+        if (! isEnoughPoint(customer.getPoint(), deductPoint)) {
+            throw new CustomException(ErrorCode.NOT_ENOUGH_POINT);
+        }
 
-        customer.changePoint(form.getPoint());
+        customer.deductPoint(deductPoint);
         customerService.save(customer);
 
-        customerPointHistoryService.saveHistory(customer.getCustomerId(), form);
+        final int refactor = -1;
+        customerPointHistoryService.saveHistory(
+                customer.getCustomerId(), new ChangePointForm(email, message, deductPoint * refactor));
     }
 
 
-    private void checkPoint(final int currentPoint, final int changeAmount) {
-        if (currentPoint + changeAmount > 0) {
-            throw new CustomException(ErrorCode.NOT_ENOUGH_POINT);
-        }
+    private boolean isEnoughPoint(int currentPoint, int deductAmount) {
+        return currentPoint - deductAmount > 0;
     }
 
 }

@@ -3,7 +3,6 @@ package com.toy.ecommerce.user.service;
 import com.toy.ecommerce.global.exception.CustomException;
 import com.toy.ecommerce.global.exception.ErrorCode;
 import com.toy.ecommerce.user.dto.ChangePointForm;
-import com.toy.ecommerce.user.entity.Customer;
 import com.toy.ecommerce.user.entity.CustomerPointHistory;
 import com.toy.ecommerce.user.repository.CustomerPointHistoryRepository;
 import lombok.RequiredArgsConstructor;
@@ -23,37 +22,14 @@ public class CustomerPointHistoryService {
     public CustomerPointHistory saveHistory(Long customerId, final ChangePointForm form) {
 
         CustomerPointHistory customerBalanceHistory =
-                customerPointHistoryRepository.findFirstByCustomer_idOrderByIdDesc(customerId)
-                        .orElse(initHistory(customerId));
+                customerPointHistoryRepository.findFirstByCustomer_customerIdOrderByHistoryIdDesc(customerId)
+                        .orElse(CustomerPointHistory.initHistory(customerService.getById(customerId)
+                                .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER))));
 
-        final int resultMoney = customerBalanceHistory.getCurrentPoint() + form.getPoint();
+        final int resultMoney = customerBalanceHistory.getCurrentPoint() + form.getChangePoint();
 
         return customerPointHistoryRepository.save(
-                setNewHistory(form, resultMoney, customerBalanceHistory.getCustomer()));
-    }
-
-
-    private CustomerPointHistory initHistory(Long customerId) {
-
-        return CustomerPointHistory.builder()
-                .changePoint(0)
-                .currentPoint(0)
-                .customer(customerService.getById(customerId)
-                        .orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_USER)))
-                .build();
-    }
-
-    private CustomerPointHistory setNewHistory(ChangePointForm form,
-                                               int resultMoney,
-                                               Customer customer) {
-
-        return CustomerPointHistory.builder()
-                .changePoint(form.getPoint())
-                .currentPoint(resultMoney)
-                .description(form.getMessage())
-                .fromMessage(form.getFrom())
-                .customer(customer)
-                .build();
+                CustomerPointHistory.newHistory(form, resultMoney, customerBalanceHistory.getCustomer()));
     }
 
 }

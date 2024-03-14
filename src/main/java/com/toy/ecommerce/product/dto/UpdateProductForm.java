@@ -23,9 +23,6 @@ public class UpdateProductForm {
     @Size(max = 1000)
     private String subName;             // 서브 이름
 
-    @Min(1)
-    private Integer price;              // 가격
-
     private String description;         // 설명
 
     @NotNull

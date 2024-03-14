@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class OrderForm {
+public class OrderRequestForm {
 
     private int totalAmount;
     private List<OrderOptionForm> options = new ArrayList<>();

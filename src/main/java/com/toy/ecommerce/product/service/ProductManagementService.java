@@ -2,6 +2,7 @@ package com.toy.ecommerce.product.service;
 
 import com.toy.ecommerce.global.exception.CustomException;
 import com.toy.ecommerce.global.exception.ErrorCode;
+import com.toy.ecommerce.product.dto.CreateOptionForm;
 import com.toy.ecommerce.product.dto.CreateProductForm;
 import com.toy.ecommerce.product.dto.UpdateProductForm;
 import com.toy.ecommerce.product.entity.Product;
@@ -11,8 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
 
 @Service
 @RequiredArgsConstructor
@@ -27,12 +26,10 @@ public class ProductManagementService {
     public Product createProduct(Long sellerId, CreateProductForm form) {
 
         Product product = productService.create(sellerId, form);
-        product.setOptions(new ArrayList<>());
 
-        form.getOptions().forEach(optionForm -> {
-            ProductOption option = productOptionService.create(sellerId, product.getProductCode(), optionForm);
-            product.getOptions().add(option);
-        });
+        for (CreateOptionForm optionForm : form.getOptions()) {
+            productOptionService.save(ProductOption.create(product, optionForm));
+        }
 
         return product;
     }

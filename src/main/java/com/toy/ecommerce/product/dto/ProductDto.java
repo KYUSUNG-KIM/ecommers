@@ -21,8 +21,6 @@ public class ProductDto {
 
     private String subName;                     // 서브 이름
 
-    private Integer price;                      // 가격
-
     private String description;                 // 설명
 
     private SellStatus sellStatus;              // 판매 상태
@@ -38,7 +36,6 @@ public class ProductDto {
                 .category(CategoryProductSimpleDto.from(product.getCategoryProduct()))
                 .name(product.getName())
                 .subName(product.getSubName())
-                .price(product.getPrice())
                 .description(product.getDescription())
                 .sellStatus(product.getSellStatus())
                 .options(product.getOptions().stream().map(ProductOptionDto::from).toList())

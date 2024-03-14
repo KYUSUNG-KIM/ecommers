@@ -11,19 +11,19 @@ import lombok.Setter;
 public class UpdateOptionForm {
 
     @NotNull
-    private String optionCode;              // 옵션 코드
+    private String optionCode;
 
     @NotNull
     @Size(max = 100)
-    private String optionName;              // 옵션명
+    private String optionName;
+
+    @Min(1)
+    private Integer price;
 
     @Min(0)
-    private Integer extraAmount;            // 추가 금액
-
-    @Min(0)
-    private Integer inventory;              // 재고
+    private Integer inventory;
 
     @NotNull
-    private String sellStatus;          // 판매 상태
+    private String sellStatus;
 
 }

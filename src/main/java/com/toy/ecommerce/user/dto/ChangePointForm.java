@@ -15,6 +15,5 @@ public class ChangePointForm {
 
     private String message;
 
-    private int point;
-
+    private int changePoint;
 }
