@@ -31,7 +31,6 @@ class ProductManagementServiceTest {
         form.setCategoryCode(categoryCode);
         form.setName("무지 맨투맨");
         form.setSubName("어깨가 넓어보이는 효과");
-        form.setPrice(10000);
         form.setDescription("어깨가 넓어보이는 맨투맨 어좁이들한테 제격!");
 
 
