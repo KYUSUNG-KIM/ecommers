@@ -69,17 +69,15 @@ public class Product extends BaseEntity {
                 .build();
     }
 
+    public Product update(CategoryProduct categoryProduct,
+                          UpdateProductForm form) {
 
-    public static Product update(Product product,
-                                 CategoryProduct categoryProduct,
-                                 UpdateProductForm form) {
-
-        return product.toBuilder()
+        return this.toBuilder()
                 .categoryProduct(categoryProduct)
                 .name(form.getName())
                 .subName(form.getSubName())
                 .description(form.getDescription())
-                .sellStatus(SellStatus.valueOf(form.getSellStatus()))
+                .sellStatus(SellStatus.fromValue(form.getSellStatus()))
                 .build();
     }
 

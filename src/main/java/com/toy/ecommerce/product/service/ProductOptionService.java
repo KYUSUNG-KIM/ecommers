@@ -38,15 +38,6 @@ public class ProductOptionService {
         return productOptionRepository.findById(optionCode);
     }
 
-    // return 상품명 + 옵션명
-    @Transactional
-    public String getProductOptionNameByOptionCode(String optionCode) {
-
-        return productOptionRepository.findById(optionCode)
-                .map(option -> option.getProduct().getName() + " " + option.getOptionName())
-                .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_OPTION));
-    }
-
     // 상품 옵션 생성
     @Transactional
     public ProductOption create(Long sellerId, String productCode, CreateOptionForm form) {
@@ -70,6 +61,7 @@ public class ProductOptionService {
     }
 
     private boolean hasEnoughInventory(final ProductOption productOption, final int quantity) {
+
         return productOption.getOptionInventory().getInventory() >= quantity;
     }
 

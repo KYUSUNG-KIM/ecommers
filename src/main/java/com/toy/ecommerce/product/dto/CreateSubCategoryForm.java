@@ -2,17 +2,16 @@ package com.toy.ecommerce.product.dto;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
-public class CreateCategoryForm {
+@SuperBuilder
+public class CreateSubCategoryForm extends CreateTopCategoryForm {
 
     @NotNull
-    private Boolean hasParentCategory;
-
     private String parentCategoryCode;
 
     @NotNull

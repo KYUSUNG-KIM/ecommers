@@ -25,6 +25,7 @@ public class CategoryProductDto {
         return CategoryProductDto.builder()
                 .categoryCode(categoryProduct.getCategoryCode())
                 .categoryName(categoryProduct.getCategoryName())
+//                .children(CollectionUtils.emptyIfNull(categoryProduct.getChildren())
                 .children(categoryProduct.getChildren()
                         .stream()
                         .map(CategoryProductDto::from)

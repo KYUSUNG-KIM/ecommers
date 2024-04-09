@@ -11,5 +11,4 @@ public class CheckOptionForm {
 
     private String optionCode;
     private int quantity;
-
 }

@@ -1,16 +1,18 @@
 package com.toy.ecommerce.product.dto;
 
-import jakarta.validation.constraints.Min;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class UpdateProductForm {
 
     @NotNull
@@ -28,5 +30,5 @@ public class UpdateProductForm {
     @NotNull
     private String sellStatus;          // 판매 상태
 
-    private List<UpdateOptionForm> options = new ArrayList<>();     // 상품 옵션
+    private List<@Valid UpdateOptionForm> options = new ArrayList<>();     // 상품 옵션
 }
