@@ -26,4 +26,13 @@ public enum SellStatus implements EnumProperty {
     public String getTitle() {
         return this.title;
     }
+
+    public static SellStatus fromValue(String code) {
+        try {
+            return valueOf(code);
+        }
+        catch (Exception e) {
+            return null;
+        }
+    }
 }

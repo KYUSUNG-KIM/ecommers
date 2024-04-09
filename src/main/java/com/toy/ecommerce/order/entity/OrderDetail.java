@@ -1,6 +1,7 @@
 package com.toy.ecommerce.order.entity;
 
 import com.toy.ecommerce.global.entity.BaseEntity;
+import com.toy.ecommerce.order.dto.OrderDetailParam;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -35,4 +36,15 @@ public class OrderDetail extends BaseEntity {
     @Column(nullable = false)
     private int totalAmount;
 
+
+    public static OrderDetail of(Order order, OrderDetailParam param) {
+        return OrderDetail.builder()
+                .order(order)
+                .optionCode(param.getOptionCode())
+                .productName(param.getProductName())
+                .price(param.getPrice())
+                .quantity(param.getQuantity())
+                .totalAmount(param.getPrice() * param.getQuantity())
+                .build();
+    }
 }

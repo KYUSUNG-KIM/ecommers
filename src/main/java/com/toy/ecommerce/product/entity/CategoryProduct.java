@@ -1,7 +1,7 @@
 package com.toy.ecommerce.product.entity;
 
 import com.toy.ecommerce.global.entity.BaseEntity;
-import com.toy.ecommerce.product.dto.CreateCategoryForm;
+import com.toy.ecommerce.product.dto.CreateTopCategoryForm;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -33,13 +33,13 @@ public class CategoryProduct extends BaseEntity {
     @Column(length = 100)
     private String categoryName;                // 카테고리명
 
-
+    @Builder.Default
     @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY)
     private List<CategoryProduct> children = new ArrayList<>();     // 자식 카테고리
 
 
     public static CategoryProduct of(CategoryProduct parent,
-                                     CreateCategoryForm form) {
+                                     CreateTopCategoryForm form) {
 
         return CategoryProduct.builder()
                 .parent(parent)

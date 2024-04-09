@@ -47,7 +47,7 @@ public class ProductService {
         CategoryProduct categoryProduct = categoryProductService.getByCategoryCode(form.getCategoryCode())
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_CATEGORY));
 
-        return productRepository.save(Product.update(product, categoryProduct, form));
+        return productRepository.save(product.update(categoryProduct, form));
     }
 
     // 상품 조회

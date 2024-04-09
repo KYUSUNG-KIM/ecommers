@@ -2,7 +2,8 @@ package com.toy.ecommerce.product.controller;
 
 import com.toy.ecommerce.global.dto.CommonResponse;
 import com.toy.ecommerce.product.dto.CategoryProductDto;
-import com.toy.ecommerce.product.dto.CreateCategoryForm;
+import com.toy.ecommerce.product.dto.CreateSubCategoryForm;
+import com.toy.ecommerce.product.dto.CreateTopCategoryForm;
 import com.toy.ecommerce.product.service.CategoryProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -20,13 +21,21 @@ public class CategoryProductController {
     private final CategoryProductService categoryProductService;
 
 
-    // 카테고리 등록
-    @PostMapping("/category/products")
-    public CommonResponse<CategoryProductDto> createCategory(@Valid @RequestBody CreateCategoryForm form) {
+    // TODO 관리자 기능으로 편입시켜야 한다.
+    // 최상위 카테고리 등록
+    @PostMapping("/category-top/product/")
+    public CommonResponse<CategoryProductDto> createCategory(@Valid @RequestBody CreateTopCategoryForm form) {
 
-        return new CommonResponse<>(CategoryProductDto.from(categoryProductService.create(form)));
+        return new CommonResponse<>(CategoryProductDto.from(categoryProductService.createTopCategory(form)));
     }
 
+    // TODO 관리자 기능으로 편입시켜야 한다.
+    // 하위 카테고리 등록
+    @PostMapping("/category-sub/product")
+    public CommonResponse<CategoryProductDto> createCategory(@Valid @RequestBody CreateSubCategoryForm form) {
+
+        return new CommonResponse<>(CategoryProductDto.from(categoryProductService.createChildCategory(form)));
+    }
 
     // 전체 카테고리 조회
     @GetMapping("/category/products")

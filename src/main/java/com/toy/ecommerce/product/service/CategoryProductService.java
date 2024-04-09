@@ -3,7 +3,8 @@ package com.toy.ecommerce.product.service;
 import com.toy.ecommerce.global.exception.CustomException;
 import com.toy.ecommerce.global.exception.ErrorCode;
 import com.toy.ecommerce.product.dto.CategoryProductDto;
-import com.toy.ecommerce.product.dto.CreateCategoryForm;
+import com.toy.ecommerce.product.dto.CreateSubCategoryForm;
+import com.toy.ecommerce.product.dto.CreateTopCategoryForm;
 import com.toy.ecommerce.product.entity.CategoryProduct;
 import com.toy.ecommerce.product.repository.CategoryProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -38,24 +39,29 @@ public class CategoryProductService {
                 .toList();
     }
 
-
-    /*
-    상품 카테고리 생성
-    - 최상위 카테고리 CategoryProduct.parent = null
-     */
+    // 하위 카테고리 생성
     @Transactional
-    public CategoryProduct create(CreateCategoryForm form) {
+    public CategoryProduct createChildCategory(CreateSubCategoryForm form) {
+
+        if (categoryProductRepository.existsByCategoryCode(form.getCategoryCode())) {
+            throw new CustomException(ErrorCode.ALREADY_ADDED_CATEGORY);
+        }
+
+        CategoryProduct parent = categoryProductRepository.findByCategoryCode(form.getParentCategoryCode())
+                .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_CATEGORY));
+
+        return categoryProductRepository.save(CategoryProduct.of(parent, form));
+    }
+
+    // 최상위 상품 카테고리 생성
+    @Transactional
+    public CategoryProduct createTopCategory(CreateTopCategoryForm form) {
 
         if (categoryProductRepository.existsByCategoryCode(form.getCategoryCode())) {
             throw new CustomException(ErrorCode.ALREADY_ADDED_CATEGORY);
         }
 
         CategoryProduct parent = null;
-
-        if (form.getHasParentCategory()) {
-            parent = categoryProductRepository.findByCategoryCode(form.getParentCategoryCode())
-                    .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_CATEGORY));
-        }
 
         return categoryProductRepository.save(CategoryProduct.of(parent, form));
     }

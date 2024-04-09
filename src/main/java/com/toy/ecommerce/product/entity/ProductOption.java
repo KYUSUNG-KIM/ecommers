@@ -15,6 +15,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder(toBuilder = true)
+@ToString
 public class ProductOption extends BaseEntity {
 
     @Id
@@ -53,14 +54,14 @@ public class ProductOption extends BaseEntity {
                 .build();
     }
 
-    public static ProductOption update(ProductOption option, UpdateOptionForm form) {
+    public ProductOption update(UpdateOptionForm form) {
 
-        return option.toBuilder()
+        return this.toBuilder()
                 .optionName(form.getOptionName())
-                .sellStatus(SellStatus.valueOf(form.getSellStatus()))
+                .sellStatus(SellStatus.fromValue(form.getSellStatus()))
                 .price(form.getPrice())
-                .optionInventory(ProductOptionInventory.update(option.getOptionInventory(), form.getInventory()))
-                .sellStatus(SellStatus.valueOf(form.getSellStatus()))
+                .optionInventory(ProductOptionInventory.update(this.getOptionInventory(), form.getInventory()))
+                .sellStatus(SellStatus.fromValue(form.getSellStatus()))
                 .build();
     }
 

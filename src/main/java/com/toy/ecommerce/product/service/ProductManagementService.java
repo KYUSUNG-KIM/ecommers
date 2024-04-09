@@ -45,7 +45,7 @@ public class ProductManagementService {
                     .findFirst()
                     .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_OPTION));
 
-            productOptionService.save(ProductOption.update(productOption, optionForm));
+            productOptionService.save(productOption.update(optionForm));
         });
 
         return updateProduct;

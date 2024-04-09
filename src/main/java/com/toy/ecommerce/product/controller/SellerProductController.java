@@ -4,9 +4,9 @@ import com.toy.ecommerce.global.dto.CommonResponse;
 import com.toy.ecommerce.product.dto.CreateProductForm;
 import com.toy.ecommerce.product.dto.ProductDto;
 import com.toy.ecommerce.product.dto.UpdateProductForm;
-import com.toy.ecommerce.product.entity.Product;
 import com.toy.ecommerce.product.service.ProductManagementService;
 import com.toy.ecommerce.product.service.ProductService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +34,7 @@ public class SellerProductController {
     // 상품 수정
     @PutMapping(value = "/seller/products/{productCode}")
     public CommonResponse<ProductDto> updateProduct(@PathVariable(name = "productCode") String productCode,
-                                        @RequestBody UpdateProductForm form) {
+                                                    @Valid @RequestBody UpdateProductForm form) {
 
         // todo : seller ID 입력 받기
 
