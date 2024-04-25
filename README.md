@@ -6,7 +6,7 @@
 
 ## 적용 기술
 - JAVA 17
-- Spring Boot, Spring Security, Spring Cloud(예정)
+- Spring Boot, Spring Security, Spring Cloud(진행중)
 - JPA, Querydsl
 - MariaDB
 - Redis(예정)
