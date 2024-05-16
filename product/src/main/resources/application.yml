@@ -1,0 +1,32 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: product-service
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    url: jdbc:mysql://localhost:3306/ecommerce?useSSL=false&useUnicode=true&allowPublicKeyRetrieval=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: rlarbtjd951
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+
+feign:
+  okhttp:
+    enabled: true
+
+eureka:
+  instance:
+#    instance-id: ${spring.cloud.client.hostname}:${spring.application.instatce_id:${random.value}}
+    instance-id: ${spring.application.name}:${spring.application.instatce_id:${random.value}}
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka
