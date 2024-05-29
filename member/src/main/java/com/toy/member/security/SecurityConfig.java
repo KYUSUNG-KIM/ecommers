@@ -69,8 +69,8 @@ public class SecurityConfig {
                         httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
+                        .requestMatchers("/actuator/**").permitAll()
                         .requestMatchers("/login").permitAll()
-                        .requestMatchers("/custom/authentication").permitAll()
                         .requestMatchers("/sign-up/**").permitAll()
                         .anyRequest().authenticated())
 
