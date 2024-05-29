@@ -47,6 +47,15 @@ spring:
             - RewritePath=/member-service/(?<segment>.*), /$\{segment}
             - AuthorizationHeaderFilter
 
+        - id: member-service
+          uri: lb://MEMBER-SERVICE
+          predicates:
+            - Path=/member-service/actuator/**
+            - Method=GET,POST
+          filters:
+            - RemoveRequestHeader=Cookie
+            - RewritePath=/member-service/(?<segment>.*), /$\{segment}
+
         - id : product-service
           uri: lb://product-service
           predicates:
@@ -77,24 +86,14 @@ spring:
                 postLogger: true
             - AuthorizationHeaderFilter
 
-
-# example
-#        - id: product-service
-#          uri: lb://product-service
-#          predicates:
-#            - Path=/product-service/**
-#          filters:
-#            - name: CustomFilter
-#            - name: LoggingFilter
-#              args:
-#                baseMessage: Hi, Logging Filter
-#                preLogger: true
-#                postLogger: true
-#            - AuthorizationHeaderFilter
-#            - AddRequestHeader=product-header, product-request-header2
-#            - AddResponseHeader=product-header, product-response-header2
-
-jwt:
-  header: Authorization
-  secret: eeb0Bonsp6hstpgEokKhIfmuqWVEtjjpC8EEVRErrgYaisIbYhjEFbNvvALAnXS
-  token-validity-in-seconds: 86400
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - refresh
+          - health
+          - beans
+          - httpExchange
+          - httptrace
+          - busrefresh

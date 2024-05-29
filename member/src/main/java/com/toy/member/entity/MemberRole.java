@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "ecc_member_role")
+@Table(name = "ecc_member_authority")
 @Getter
 @Setter
 @IdClass(value = MemberRoleId.class)
