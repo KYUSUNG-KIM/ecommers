@@ -1,0 +1,21 @@
+name:ecommerce
+
+on:
+  push:
+    branches:
+      - main
+    pull_request:
+      branches:
+        - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+strategy:
+  matrix:
+    module: [api-gateway, config-service, discovery-server, ecommerce-common, member, order, product]
+
+steps:
+  - name: Checkout code
+    uses: action/checkout@3
