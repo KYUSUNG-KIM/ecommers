@@ -5,7 +5,7 @@
 # This workflow will build a package using Gradle and then publish it to GitHub packages when a release is created
 # For more information see: https://github.com/actions/setup-java/blob/main/docs/advanced-usage.md#Publishing-using-gradle
 
-name: Ecommerce Modules CI
+name: Ecommerce deploy
 
 on:
   push:
@@ -18,7 +18,7 @@ env:
 
 jobs:
         
-  test:
+  build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -42,7 +42,10 @@ jobs:
         # settings-path: ${{ github.workspace }} # location for the settings.xml file
 
     - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@v3.1.0 # 417ae3ccd767c252f5661f1ace9f835f9654f2b5 # v3.1.0
+      uses: gradle/actions/setup-gradle@v3.1.0
+      
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
 
     - name: Build with Gradle
       run: ./gradlew build
