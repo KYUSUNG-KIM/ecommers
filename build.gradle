@@ -37,12 +37,6 @@ subprojects {
 	group 'com.toy.ecommerce'
 	version '0.0.1-SNAPSHOT'
 
-	configurations {
-		compileOnly {
-			extendsFrom annotationProcessor
-		}
-	}
-
 	ext {
 		set('springCloudVersion', "2023.0.0")
 	}
@@ -55,8 +49,5 @@ subprojects {
 
 	repositories {
 		mavenCentral()
-	}
-
-	dependencies {
 	}
 }

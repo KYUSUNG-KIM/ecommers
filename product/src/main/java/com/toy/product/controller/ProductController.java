@@ -2,9 +2,11 @@ package com.toy.product.controller;
 
 import com.toy.ecommercecommon.global.dto.CommonResponse;
 import com.toy.product.dto.*;
+import com.toy.product.service.ProductManagementService;
 import com.toy.product.service.ProductOptionInventoryService;
 import com.toy.product.service.ProductOptionService;
 import com.toy.product.service.ProductService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +22,25 @@ public class ProductController {
     private final ProductService productService;
     private final ProductOptionService productOptionService;
     private final ProductOptionInventoryService productOptionInventoryService;
+    private final ProductManagementService productManagementService;
 
+
+    // 상품 등록
+    @PostMapping(value = "/products")
+    public CommonResponse<ProductDto> createProduct(@RequestBody CreateProductForm form) {
+
+        // TODO
+        return new CommonResponse<>(ProductDto.from(productManagementService.createProduct(1L, form)));
+    }
+
+    // 상품 수정
+    @PutMapping(value = "/products/{productCode}")
+    public CommonResponse<ProductDto> updateProduct(@PathVariable(name = "productCode") String productCode,
+                                                    @Valid @RequestBody UpdateProductForm form) {
+
+        // TODO
+        return new CommonResponse<>(ProductDto.from(productManagementService.updateProduct(1L, productCode, form)));
+    }
 
     // 상품 목록 검색
     @GetMapping(value = "/products")

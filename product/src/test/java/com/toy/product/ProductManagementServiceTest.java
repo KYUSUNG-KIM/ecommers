@@ -45,21 +45,21 @@ public class ProductManagementServiceTest {
     void createProduct() {
 
         // given
-        Long sellerId = 1L;
+        Long memberId = 1L;
         CreateProductForm form = setCreateProductForm();
         CategoryProduct mockCategoryProduct = CategoryProduct.builder()
                 .categoryCode(form.getCategoryCode())
                 .build();
-        Product mockProduct = Product.create(sellerId, mockCategoryProduct, form);
-        given(productService.create(eq(sellerId), any(CreateProductForm.class))).willReturn(mockProduct);
+        Product mockProduct = Product.create(memberId, mockCategoryProduct, form);
+        given(productService.create(eq(memberId), any(CreateProductForm.class))).willReturn(mockProduct);
         given(productOptionService.save(any(ProductOption.class))).willAnswer(invocation -> invocation.getArgument(0));
 
         // when
-        Product createdProduct = productManagementService.createProduct(sellerId, form);
+        Product createdProduct = productManagementService.createProduct(memberId, form);
 
         // then
         assertNotNull(createdProduct);
-        verify(productService).create(eq(sellerId), any(CreateProductForm.class));
+        verify(productService).create(eq(memberId), any(CreateProductForm.class));
         verify(productOptionService, atLeastOnce()).save(any(ProductOption.class));
         assertEquals(createdProduct.getProductCode(), mockProduct.getProductCode());
         assertEquals(createdProduct.getName(), form.getName());
@@ -76,7 +76,7 @@ public class ProductManagementServiceTest {
     void updateProduct_success() {
 
         // given
-        Long sellerId = 1L;
+        Long memberId = 1L;
         UpdateProductForm form = setUpdateProductForm();
         Product mockProduct = setProductByUpdateProductForm(form);
 
@@ -84,12 +84,12 @@ public class ProductManagementServiceTest {
         given(productOptionService.save(any(ProductOption.class))).willAnswer(invocation -> invocation.getArgument(0));
 
         // when
-        Product updateProduct = productManagementService.updateProduct(sellerId, mockProduct.getProductCode(), form);
+        Product updateProduct = productManagementService.updateProduct(memberId, mockProduct.getProductCode(), form);
         ArgumentCaptor<ProductOption> productOptionCaptor = ArgumentCaptor.forClass(ProductOption.class);
 
         // then
         assertNotNull(updateProduct);
-        verify(productService).update(eq(sellerId), anyString(), any(UpdateProductForm.class));
+        verify(productService).update(eq(memberId), anyString(), any(UpdateProductForm.class));
         verify(productOptionService, times(form.getOptions().size())).save(any(ProductOption.class));
         assertEquals(mockProduct.getProductCode(), updateProduct.getProductCode());
         assertEquals(form.getName(), updateProduct.getName());

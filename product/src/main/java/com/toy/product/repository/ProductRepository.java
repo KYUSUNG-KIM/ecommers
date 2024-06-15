@@ -10,10 +10,7 @@ import java.util.Optional;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    Optional<Product> findBySellerIdAndProductCode(Long sellerId, String productCode);
-
-    @EntityGraph(attributePaths = "options", type = EntityGraph.EntityGraphType.LOAD)
-    Optional<Product> findWithOptionsBySellerIdAndProductCode(Long sellerId, String productCode);
+    Optional<Product> findByMemberIdAndProductCode(Long memberId, String productCode);
 
     @EntityGraph(attributePaths = "options", type = EntityGraph.EntityGraphType.LOAD)
     Optional<Product> findByProductCode(String productCode);

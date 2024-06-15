@@ -53,13 +53,13 @@ public class Product extends BaseEntity {
     private List<ProductOption> options = new ArrayList<>();        // 상품 옵션
 
 
-    public static Product create(Long sellerId,
+    public static Product create(Long memberId,
                                  CategoryProduct categoryProduct,
                                  CreateProductForm form) {
 
         return Product.builder()
                 .productCode(ProductCodeUtil.generateProductCode())
-                .memberId(sellerId)
+                .memberId(memberId)
                 .categoryProduct(categoryProduct)
                 .name(form.getName())
                 .subName(form.getSubName())

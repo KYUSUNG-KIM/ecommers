@@ -43,14 +43,14 @@ class ProductOptionServiceTest {
     void create() {
 
         // given
-        Long mockSellerId = 1L;
+        Long mockMemberId = 1L;
         String mockProductCode = "MOCK_PRODUCT_CODE";
         CreateOptionForm mockForm = setCreateOptionForm();
-        given(productService.getBySellerIdAndProductCode(anyLong(), anyString())).willReturn(Mockito.mock(Product.class));
+        given(productService.getByMemberIdAndProductCode(anyLong(), anyString())).willReturn(Mockito.mock(Product.class));
         given(productOptionRepository.save(any(ProductOption.class))).willAnswer(invocation -> invocation.getArgument(0));
 
         // when
-        ProductOption productOption = productOptionService.create(mockSellerId, mockProductCode, mockForm);
+        ProductOption productOption = productOptionService.create(mockMemberId, mockProductCode, mockForm);
 
         // then
         assertNotNull(productOption);

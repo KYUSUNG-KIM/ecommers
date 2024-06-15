@@ -30,21 +30,21 @@ public class ProductService {
 
     // 상품 등록
     @Transactional
-    public Product create(Long sellerId, CreateProductForm form) {
+    public Product create(Long memberId, CreateProductForm form) {
 
         CategoryProduct categoryProduct = categoryProductService.getByCategoryCode(form.getCategoryCode())
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_CATEGORY));
 
-        Product product = Product.create(sellerId, categoryProduct, form);
+        Product product = Product.create(memberId, categoryProduct, form);
 
         return productRepository.save(product);
     }
 
     // 상품 수정
     @Transactional
-    public Product update(Long sellerId, String productCode, UpdateProductForm form) {
+    public Product update(Long memberId, String productCode, UpdateProductForm form) {
 
-        Product product = productRepository.findBySellerIdAndProductCode(sellerId, productCode)
+        Product product = productRepository.findByMemberIdAndProductCode(memberId, productCode)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_PRODUCT));
 
         CategoryProduct categoryProduct = categoryProductService.getByCategoryCode(form.getCategoryCode())
@@ -63,9 +63,9 @@ public class ProductService {
 
     // 상품 조회
     @Transactional(readOnly = true)
-    public Product getBySellerIdAndProductCode(Long sellerId, String productCode) {
+    public Product getByMemberIdAndProductCode(Long memberId, String productCode) {
 
-        return productRepository.findBySellerIdAndProductCode(sellerId, productCode)
+        return productRepository.findByMemberIdAndProductCode(memberId, productCode)
                 .orElseThrow(() -> new CustomException(ErrorCode.NOT_EXIST_PRODUCT));
     }
 
