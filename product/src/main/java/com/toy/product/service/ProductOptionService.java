@@ -41,9 +41,9 @@ public class ProductOptionService {
 
     // 상품 옵션 생성
     @Transactional
-    public ProductOption create(Long sellerId, String productCode, CreateOptionForm form) {
+    public ProductOption create(Long memberId, String productCode, CreateOptionForm form) {
 
-        Product product = productService.getBySellerIdAndProductCode(sellerId, productCode);
+        Product product = productService.getByMemberIdAndProductCode(memberId, productCode);
 
         ProductOption productOption = ProductOption.create(product, form);
 

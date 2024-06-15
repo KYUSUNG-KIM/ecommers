@@ -73,7 +73,7 @@ public class ProductServiceTest {
         UpdateProductForm mockForm = setMockUpdateProductForm();
         Product mockProduct = setMockProduct(mockProductCode, mockMemberId);
         CategoryProduct mockCategoryProduct = setMockCategoryProduct(mockForm.getCategoryCode());
-        given(productRepository.findBySellerIdAndProductCode(mockMemberId, mockProductCode)).willReturn(Optional.of(mockProduct));
+        given(productRepository.findByMemberIdAndProductCode(mockMemberId, mockProductCode)).willReturn(Optional.of(mockProduct));
         given(categoryProductService.getByCategoryCode(mockForm.getCategoryCode())).willReturn(Optional.of(mockCategoryProduct));
         given(productRepository.save(any(Product.class))).willAnswer(invocation -> invocation.getArgument(0));
 
@@ -122,14 +122,14 @@ public class ProductServiceTest {
     }
 
     @Test
-    void getBySellerIdAndProductCode() {
+    void getByMemberIdAndProductCode() {
 
         // given
         Product mockProduct = setMockProduct(mockProductCode, mockMemberId);
-        given(productRepository.findBySellerIdAndProductCode(mockMemberId, mockProductCode)).willReturn(Optional.of(mockProduct));
+        given(productRepository.findByMemberIdAndProductCode(mockMemberId, mockProductCode)).willReturn(Optional.of(mockProduct));
 
         // when
-        Product product = productService.getBySellerIdAndProductCode(mockMemberId, mockProductCode);
+        Product product = productService.getByMemberIdAndProductCode(mockMemberId, mockProductCode);
 
         // then
         assertEquals(mockProductCode, product.getProductCode());
@@ -141,14 +141,14 @@ public class ProductServiceTest {
     }
 
     @Test
-    void getBySellerIdAndProductCode_NotExistProductException() {
+    void getByMemberIdAndProductCode_NotExistProductException() {
 
         // given
-        given(productRepository.findBySellerIdAndProductCode(anyLong(), anyString())).willReturn(Optional.empty());
+        given(productRepository.findByMemberIdAndProductCode(anyLong(), anyString())).willReturn(Optional.empty());
 
         // when, then
         CustomException customException =
-                assertThrows(CustomException.class, () -> productService.getBySellerIdAndProductCode(mockMemberId, mockProductCode));
+                assertThrows(CustomException.class, () -> productService.getByMemberIdAndProductCode(mockMemberId, mockProductCode));
         assertEquals(ErrorCode.NOT_EXIST_PRODUCT, customException.getErrorCode());
     }
 

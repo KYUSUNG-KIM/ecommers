@@ -35,9 +35,9 @@ public class ProductManagementService {
     }
 
     @Transactional
-    public Product updateProduct(Long sellerId, String productCode, UpdateProductForm form) {
+    public Product updateProduct(Long memberId, String productCode, UpdateProductForm form) {
 
-        Product updateProduct = productService.update(sellerId, productCode, form);
+        Product updateProduct = productService.update(memberId, productCode, form);
 
         form.getOptions().forEach(optionForm -> {
             ProductOption productOption = updateProduct.getOptions().stream()

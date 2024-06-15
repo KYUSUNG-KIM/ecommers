@@ -4,6 +4,11 @@ server:
 spring:
   application:
     name: MEMBER-SERVICE
+#  rabbitmq:
+#    host: 127.0.0.1
+#    port: 5672
+#    username: guest
+#    password: guest
   datasource:
     url: jdbc:mysql://localhost:3306/ecommerce?useSSL=false&useUnicode=true&allowPublicKeyRetrieval=true
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -22,14 +27,21 @@ logging:
     ms:
       selvernine: DEBUG
 
-jwt:
-  header: Authorization
-  secret: eeb0Bonsp6hstpgEokKhIfmuqWVEtjjpC8EEVRErrgYaisIbYhjEFbNvvALAnXS
-  token-validity-in-seconds: 86400
-
 eureka:
   client:
     register-with-eureka: true
     fetch-registry: true
     service-url:
       defaultZone: http://127.0.0.1:8761/eureka
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - refresh
+          - health
+          - beans
+          - httpExchange
+          - httptrace
+          - busrefresh
