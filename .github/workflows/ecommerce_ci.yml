@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        module: [api-gateway, config-service, discovery-server, member, order, product]
+        module: [api-gateway, config-server, discovery-server, member, order, product]
     permissions:
       contents: read
       packages: write
