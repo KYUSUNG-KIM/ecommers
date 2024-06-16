@@ -9,6 +9,7 @@
 - Spring Boot, Spring Security, Spring Cloud
 - JPA, Querydsl
 - MariaDB
+- ...
 
 
 ## 프로젝트 진행 계획
@@ -22,7 +23,7 @@
 - [ ] 아키텍처
 - [ ] AWS연동 및 CD 설정
 - [ ] 추가 기능 개발
-
+- [ ] ...
 
 ### ✔️ 기본 기능
 <details>
