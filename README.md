@@ -6,25 +6,23 @@
 
 ## 적용 기술
 - JAVA 17
-- Spring Boot, Spring Security, Spring Cloud(진행중)
+- Spring Boot, Spring Security, Spring Cloud
 - JPA, Querydsl
 - MariaDB
-- Redis(예정)
-- Kafka(예정)
-- ...
-
-
-## 아키텍처
-TO-DO...
 
 
 ## 프로젝트 진행 계획
 - [x] 1. 모놀로식 아키텍처 구성
 - [x] 2. MSA
 - [x] 3. CI 구축
+- [ ] ...
 
+## TO-DO
+- [ ] API 정의서 작성
+- [ ] 아키텍처
+- [ ] AWS연동 및 CD 설정
+- [ ] 추가 기능 개발
 
-## 기능 정의서
 
 ### ✔️ 기본 기능
 <details>
@@ -60,34 +58,13 @@ TO-DO...
 </div>
 </details>
 
-### 🔍 추가 기능
-<details>
-<summary>추가 기능 펼치기</summary>
-<div markdown="1">
-</br>
-
-- [ ] 할인 쿠폰
-- [ ] 상품 조회 고도화 > 고객에 따른 최고 할인 금액으로 표시(쿠폰 적용가 또는 프로모션 가격 등)
-- [ ] 제품 검색(Elastic Search 적용)
-- [ ] 제품 통계 및 분석
-- [ ] 이벤트 및 경품 추첨(대량 트래픽 처리)
-- [ ] ...
-
-</br>
-</div>
-</details>
-
-
-## API 정의서
-TO-DO...
-
 
 ## DB 구성도
 
 ### 1차 DB구성도
 
 <details>
-<summary>1차 DB구성도 펼치기</summary>
+<summary>DB구성도 펼치기</summary>
 <div markdown="1">
 </br>
 <p align="center">
